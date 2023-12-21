@@ -42,7 +42,7 @@ function App() {
 
   return (
       <Router>
-        <div>
+        {/*<div>*/}
           <Header />
           <Sidebar
               onDirectionSelect={handleDirectionSelect}
@@ -51,10 +51,10 @@ function App() {
           <Switch>
 
 
-            <ProductList products={products} />
+            <ProductList className="product-list" products={products} />
 
           </Switch>
-        </div>
+        {/*</div>*/}
       </Router>
   );
 }

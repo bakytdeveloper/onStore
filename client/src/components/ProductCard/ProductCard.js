@@ -49,6 +49,7 @@ import './ProductCard.css';
 
 const ProductCard = ({ images, brand, description, price }) => {
     return (
+
         <div className="product-card">
             {images.length > 0 && <img src={images[0]} alt={brand} className="product-image" />}
             <div className="product-info">

@@ -83,6 +83,7 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from './components/Header/Header';
 import Sidebar from './components/Sidebar/Sidebar';
 import ProductList from "./components/ProductList/ProductList";
+import ProductDetails from './components/ProductDetails/ProductDetails';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -145,7 +146,12 @@ function App() {
             onTypeSelect={handleTypeSelect}
         />
         <Switch>
-          <ProductList className="product-list" products={filteredProducts} />
+          <Route path="/details/:productId">
+            <ProductDetails products={products} />
+          </Route>
+          <Route path="/">
+            <ProductList className="product-list" products={filteredProducts} />
+          </Route>
         </Switch>
       </Router>
   );

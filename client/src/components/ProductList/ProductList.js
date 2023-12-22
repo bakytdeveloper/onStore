@@ -2,11 +2,13 @@
 import React from 'react';
 import ProductCard from './../ProductCard/ProductCard';
 import './ProductList.css';
+import {Link} from "react-router-dom";
 
 const ProductList = ({ products }) => {
     return (
         <div className="product-list">
             {products.map(product => (
+                <Link to={`/details/${product._id}`}>
                 <ProductCard
                     key={product._id}
                     images={product.images || []}
@@ -14,6 +16,7 @@ const ProductList = ({ products }) => {
                     description={product.description}
                     price={product.price}
                 />
+                </Link>
             ))}
         </div>
     );

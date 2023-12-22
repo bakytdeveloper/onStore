@@ -40,13 +40,25 @@ function App() {
   };
 
 
-  return (
+    const [selectedType, setSelectedType] = useState(null);
+
+
+    const handleTypeSelect = (type) => {
+        setSelectedType(type);
+    };
+
+
+
+
+    return (
       <Router>
         {/*<div>*/}
           <Header />
           <Sidebar
               onDirectionSelect={handleDirectionSelect}
               onProductsLoad={handleProductsLoad}
+              onTypeSelect={handleTypeSelect}
+
           />
           <Switch>
 

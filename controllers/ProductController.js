@@ -102,6 +102,21 @@ const getProductsByDirection = async (req, res) => {
 };
 
 
+const getProductsByType = async (req, res) => {
+    try {
+        const { type } = req.params;
+        const filter = type ? { type } : {}; // Добавляем фильтр по типу
+
+        const products = await Product.find(filter);
+        res.json(products);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+};
+
+
 
 module.exports = { getAllProducts, getProductById, addProduct,
-    deleteProductById,  getAllDirections, getAllTypes, getProductsByDirection };
+    deleteProductById,  getAllDirections, getAllTypes,
+    getProductsByDirection, getProductsByType };

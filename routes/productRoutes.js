@@ -22,6 +22,7 @@ router.get('/:id', ProductController.getProductById);
 router.post('/', ProductController.addProduct);
 router.delete('/:id', ProductController.deleteProductById);
 router.get('/directions/:direction', ProductController.getProductsByDirection);
+router.get('/types/:type', ProductController.getProductsByType); // Добавляем новый маршрут
 
 module.exports = router;
 

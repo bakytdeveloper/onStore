@@ -64,6 +64,7 @@ import ins from "./instagram.png";
 import tel from "./telegram.png";
 import what from "./whatsapp.png";
 import tik from "./tik-tok.png";
+import basket from "./basket.png";
 
 import './Header.css';
 
@@ -114,6 +115,13 @@ const Header = ({ onSearch }) => {
                     value={searchTerm}
                     onChange={handleSearchChange}
                 />
+
+                <Link to="/cart" className="login-button">
+                    <img src={basket} alt="basket" />
+
+                </Link>
+
+
                 <Link to="/login" className="login-button">Логин</Link>
             </div>
         </header>

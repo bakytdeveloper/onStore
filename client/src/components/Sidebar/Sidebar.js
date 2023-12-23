@@ -99,57 +99,6 @@ const Sidebar = ({ onDirectionSelect, onTypeSelect, onProductsLoad }) => {
         }
     };
 
-    // const handleBackClick = () => {
-    //     if (currentLevel === 'types') {
-    //         setSelectedDirection(null);
-    //         setCurrentLevel('directions');
-    //         setCurrentLevel('products');
-    //     } else if (currentLevel === 'products') {
-    //         setSelectedType(null);
-    //         setCurrentLevel('types');
-    //     }
-    // };
-
-    // ...
-    // ...
-
-    // const handleBackClick = async () => {
-    //     if (currentLevel === 'types') {
-    //         setSelectedType(null);
-    //         // Не изменяем текущий уровень, оставляем его на уровне "Типы товаров"
-    //     } else if (currentLevel === 'products') {
-    //         setSelectedType(null);
-    //         setCurrentLevel('types');
-    //     } else if (currentLevel === 'directions') {
-    //         setSelectedDirection(null);
-    //         setCurrentLevel('directions');
-    //     }
-    //
-    //     try {
-    //         let response;
-    //         if (currentLevel === 'directions') {
-    //             response = await fetch('http://localhost:5500/api/products/directions');
-    //         } else {
-    //             response = await fetch('http://localhost:5500/api/products');
-    //         }
-    //
-    //         const data = await response.json();
-    //
-    //         console.log('Received data after clicking "Назад":', data);
-    //
-    //         if (Array.isArray(data)) {
-    //             onProductsLoad(data);
-    //         } else {
-    //             console.error('Invalid data format:', data);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error fetching data:', error);
-    //     }
-    // };
-
-
-    // ...
-
     const handleBackClick = async () => {
         setSelectedDirection(null);
         setSelectedType(null); // Обнуляем выбранный тип

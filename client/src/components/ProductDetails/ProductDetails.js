@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import './ProductDetails.css';
-import cartIcon from './../Header/basket.png';
+import cartIcon from '../Header/basket.png';
 
 const ProductDetails = ({ products }) => {
     const { productId } = useParams();

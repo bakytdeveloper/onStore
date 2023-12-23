@@ -9,6 +9,8 @@ import ProductList from "./components/ProductList/ProductList";
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Registration from "./components/Registration/Registration";
+import Login from "./components/Login/Login";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -63,7 +65,6 @@ function App() {
   return (
       <Router>
         <Header onSearch={handleSearch} />
-
         <Routes>
           <Route
               path="/"
@@ -79,6 +80,8 @@ function App() {
               }
           />
           <Route path="/details/:productId" element={<ProductDetails products={products} />} />
+          <Route path="/registration" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </Router>
   );

@@ -4,7 +4,6 @@ const jwt = require('jsonwebtoken');
 const User = require('./../models/User');
 const Product = require('./../models/Product');
 
-
 const registerUser = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -192,3 +191,6 @@ const getUserProfile = async (req, res) => {
 
 
 module.exports = { registerUser, loginUser, addToCart, removeFromCart,  editCart, confirmOrder, updateUserProfile, getUserProfile };
+
+
+

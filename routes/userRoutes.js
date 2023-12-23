@@ -2,11 +2,11 @@
 const express = require('express');
 const router = express.Router();
 const UserController = require('./../controllers/UserController'); // создайте файл controllers/UserController.js
-const { authenticateUser, authorizeUser } = require('../middleware/authMiddleware');
+const { authenticateUser, authorizeUser } = require('./../middleware/authMiddleware');
 
-router.post('/register', UserController.registerUser);
+
+router.post('/registration', UserController.registerUser);
 router.post('/login', UserController.loginUser);
-
 
 router.post('/add-to-cart', authenticateUser, UserController.addToCart);
 router.post('/remove-from-cart', authenticateUser, UserController.removeFromCart);
@@ -20,6 +20,5 @@ router.post('/update-profile', authenticateUser, UserController.updateUserProfil
 router.get('/admin-page', authenticateUser, authorizeUser(['admin']), (req, res) => {
     res.json({ message: 'Welcome to the admin page.' });
 });
-
 
 module.exports = router;

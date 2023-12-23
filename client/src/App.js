@@ -11,6 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Registration from "./components/Registration/Registration";
 import Login from "./components/Login/Login";
+import AdminPanel from "./components/AdminPanel/AdminPanel";
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -82,6 +83,8 @@ function App() {
           <Route path="/details/:productId" element={<ProductDetails products={products} />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/admin-panel" element={<AdminPanel />} />
+
         </Routes>
       </Router>
   );

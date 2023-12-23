@@ -16,7 +16,6 @@ function App() {
   const [selectedDirection, setSelectedDirection] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
-  const [isSidebarVisible, setIsSidebarVisible] = useState(true); // Добавим состояние
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -61,20 +60,18 @@ function App() {
     setFilteredProducts(filtered);
   };
 
-  const toggleSidebarVisibility = () => {
-    setIsSidebarVisible(!isSidebarVisible);
-  };
+
 
   return (
       <Router>
-        <Header onSearch={handleSearch} onToggleSidebar={toggleSidebarVisibility} />
-        {isSidebarVisible && (
-            <Sidebar
-                onDirectionSelect={handleDirectionSelect}
-                onProductsLoad={handleProductsLoad}
-                onTypeSelect={handleTypeSelect}
-            />
-        )}
+        <Header onSearch={handleSearch} />
+
+        <Sidebar
+            onDirectionSelect={handleDirectionSelect}
+            onProductsLoad={handleProductsLoad}
+            onTypeSelect={handleTypeSelect}
+        />
+
         <Switch>
           <Route path="/details/:productId">
             <ProductDetails products={products} />

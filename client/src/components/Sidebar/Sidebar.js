@@ -480,14 +480,6 @@ const Sidebar = ({ onDirectionSelect, onTypeSelect, onProductsLoad }) => {
         }
     };
 
-// ...
-
-
-// ...
-
-
-// ...
-
 
     return (
         <aside className="sidebar">

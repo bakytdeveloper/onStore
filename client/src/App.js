@@ -77,6 +77,188 @@
 
 
 
+// // client/src/pages/App.js
+// import React, { useEffect, useState } from 'react';
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import Header from './components/Header/Header';
+// import Sidebar from './components/Sidebar/Sidebar';
+// import ProductList from "./components/ProductList/ProductList";
+// import ProductDetails from './components/ProductDetails/ProductDetails';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import './App.css';
+//
+// function App() {
+//   const [products, setProducts] = useState([]);
+//   const [filteredProducts, setFilteredProducts] = useState([]);
+//   const [selectedDirection, setSelectedDirection] = useState(null);
+//   const [selectedType, setSelectedType] = useState(null);
+//   const [searchTerm, setSearchTerm] = useState('');
+//
+//   useEffect(() => {
+//     const fetchProducts = async () => {
+//       try {
+//         const response = await fetch('http://localhost:5500/api/products');
+//         const data = await response.json();
+//         setProducts(data);
+//         setFilteredProducts(data);
+//       } catch (error) {
+//         console.error('Error fetching products:', error);
+//       }
+//     };
+//
+//     fetchProducts();
+//   }, []);
+//
+//   const handleDirectionSelect = (direction) => {
+//     setSelectedDirection(direction);
+//     setSearchTerm(''); // Сбрасываем поисковый запрос при выборе направления
+//   };
+//
+//   const handleProductsLoad = (loadedProducts) => {
+//     setProducts(loadedProducts);
+//     setFilteredProducts(loadedProducts);
+//     setSelectedDirection(null);
+//     setSelectedType(null);
+//   };
+//
+//   const handleTypeSelect = (type) => {
+//     setSelectedType(type);
+//     setSearchTerm(''); // Сбрасываем поисковый запрос при выборе типа
+//   };
+//
+//   const handleSearch = (value) => {
+//     setSearchTerm(value);
+//     const filtered = products.filter(
+//         (product) =>
+//             product.name.toLowerCase().includes(value.toLowerCase()) ||
+//             product.type.toLowerCase().includes(value.toLowerCase()) ||
+//             product.brand.toLowerCase().includes(value.toLowerCase())
+//     );
+//     setFilteredProducts(filtered);
+//   };
+//
+//   return (
+//       <Router>
+//         <Header onSearch={handleSearch} />
+//         <Sidebar
+//             onDirectionSelect={handleDirectionSelect}
+//             onProductsLoad={handleProductsLoad}
+//             onTypeSelect={handleTypeSelect}
+//         />
+//         <Switch>
+//           <Route path="/details/:productId">
+//             <ProductDetails products={products} />
+//           </Route>
+//           <Route path="/">
+//             <ProductList className="product-list" products={filteredProducts} />
+//           </Route>
+//         </Switch>
+//       </Router>
+//   );
+// }
+//
+// export default App;
+
+
+
+
+// import React, { useEffect, useState } from 'react';
+// import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+// import Header from './components/Header/Header';
+// import Sidebar from './components/Sidebar/Sidebar';
+// import ProductList from "./components/ProductList/ProductList";
+// import ProductDetails from './components/ProductDetails/ProductDetails';
+// import 'bootstrap/dist/css/bootstrap.min.css';
+// import './App.css';
+//
+// function App() {
+//   const [products, setProducts] = useState([]);
+//   const [filteredProducts, setFilteredProducts] = useState([]);
+//   const [selectedDirection, setSelectedDirection] = useState(null);
+//   const [selectedType, setSelectedType] = useState(null);
+//   const [searchTerm, setSearchTerm] = useState('');
+//   const [isModalOpen, setIsModalOpen] = useState(false); // Новое состояние для отслеживания модального окна
+//
+//   useEffect(() => {
+//     const fetchProducts = async () => {
+//       try {
+//         const response = await fetch('http://localhost:5500/api/products');
+//         const data = await response.json();
+//         setProducts(data);
+//         setFilteredProducts(data);
+//       } catch (error) {
+//         console.error('Error fetching products:', error);
+//       }
+//     };
+//
+//     fetchProducts();
+//   }, []);
+//
+//   const handleDirectionSelect = (direction) => {
+//     setSelectedDirection(direction);
+//     setSearchTerm('');
+//     closeSidebar(); // Закрываем сайтбар при выборе направления
+//   };
+//
+//   const handleProductsLoad = (loadedProducts) => {
+//     setProducts(loadedProducts);
+//     setFilteredProducts(loadedProducts);
+//     setSelectedDirection(null);
+//     setSelectedType(null);
+//   };
+//
+//   const handleTypeSelect = (type) => {
+//     setSelectedType(type);
+//     setSearchTerm('');
+//     closeSidebar(); // Закрываем сайтбар при выборе типа
+//   };
+//
+//   const handleSearch = (value) => {
+//     setSearchTerm(value);
+//     const filtered = products.filter(
+//         (product) =>
+//             product.name.toLowerCase().includes(value.toLowerCase()) ||
+//             product.type.toLowerCase().includes(value.toLowerCase()) ||
+//             product.brand.toLowerCase().includes(value.toLowerCase())
+//     );
+//     setFilteredProducts(filtered);
+//   };
+//
+//   const openSidebar = () => {
+//     setIsModalOpen(true);
+//   };
+//
+//   const closeSidebar = () => {
+//     setIsModalOpen(false);
+//   };
+//
+//   return (
+//       <Router>
+//         <Header onSearch={handleSearch} />
+//         <Sidebar
+//             onDirectionSelect={handleDirectionSelect}
+//             onProductsLoad={handleProductsLoad}
+//             onTypeSelect={handleTypeSelect}
+//             isOpen={!isModalOpen} // Передаем состояние для отображения/скрытия
+//         />
+//         <Switch>
+//           <Route path="/details/:productId">
+//             <ProductDetails products={products} onOpenSidebar={openSidebar} />
+//           </Route>
+//           <Route path="/">
+//             <ProductList className="product-list" products={filteredProducts} />
+//           </Route>
+//         </Switch>
+//       </Router>
+//   );
+// }
+//
+// export default App;
+
+
+
+
+
 // client/src/pages/App.js
 import React, { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -93,6 +275,7 @@ function App() {
   const [selectedDirection, setSelectedDirection] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+  const [isSidebarVisible, setIsSidebarVisible] = useState(true); // Добавим состояние
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -111,7 +294,7 @@ function App() {
 
   const handleDirectionSelect = (direction) => {
     setSelectedDirection(direction);
-    setSearchTerm(''); // Сбрасываем поисковый запрос при выборе направления
+    setSearchTerm('');
   };
 
   const handleProductsLoad = (loadedProducts) => {
@@ -123,7 +306,7 @@ function App() {
 
   const handleTypeSelect = (type) => {
     setSelectedType(type);
-    setSearchTerm(''); // Сбрасываем поисковый запрос при выборе типа
+    setSearchTerm('');
   };
 
   const handleSearch = (value) => {
@@ -137,14 +320,20 @@ function App() {
     setFilteredProducts(filtered);
   };
 
+  const toggleSidebarVisibility = () => {
+    setIsSidebarVisible(!isSidebarVisible);
+  };
+
   return (
       <Router>
-        <Header onSearch={handleSearch} />
-        <Sidebar
-            onDirectionSelect={handleDirectionSelect}
-            onProductsLoad={handleProductsLoad}
-            onTypeSelect={handleTypeSelect}
-        />
+        <Header onSearch={handleSearch} onToggleSidebar={toggleSidebarVisibility} />
+        {isSidebarVisible && (
+            <Sidebar
+                onDirectionSelect={handleDirectionSelect}
+                onProductsLoad={handleProductsLoad}
+                onTypeSelect={handleTypeSelect}
+            />
+        )}
         <Switch>
           <Route path="/details/:productId">
             <ProductDetails products={products} />
@@ -158,3 +347,13 @@ function App() {
 }
 
 export default App;
+
+
+
+
+
+
+
+
+
+

@@ -43,21 +43,43 @@
 // export default ProductCard;
 
 
+// // client/src/components/ProductCard/ProductCard.js
+// import React from 'react';
+// import './ProductCard.css';
+//
+// const ProductCard = ({ images, brand, description, price }) => {
+//     return (
+//
+//         <div className="product-card">
+//             {images.length > 0 && <img src={images[0]} alt={brand} className="product-image" />}
+//             <div className="product-info">
+//                 <h3 className="product-title">{brand}</h3>
+//                 <p className="product-description">{description.slice(0, 70)}</p>
+//                 <p className="product-price">{price}</p>
+//             </div>
+//         </div>
+//     );
+// };
+//
+// export default ProductCard;
+
+
+
 // client/src/components/ProductCard/ProductCard.js
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './ProductCard.css';
 
-const ProductCard = ({ images, brand, description, price }) => {
+const ProductCard = ({ linkTo, images, brand, description, price }) => {
     return (
-
-        <div className="product-card">
+        <Link style={{textDecoration: "none"}} to={linkTo} className="product-card"> {/* Используем ссылку здесь */}
             {images.length > 0 && <img src={images[0]} alt={brand} className="product-image" />}
             <div className="product-info">
                 <h3 className="product-title">{brand}</h3>
                 <p className="product-description">{description.slice(0, 70)}</p>
                 <p className="product-price">{price}</p>
             </div>
-        </div>
+        </Link>
     );
 };
 

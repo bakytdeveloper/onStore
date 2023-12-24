@@ -28,20 +28,63 @@ const registerUser = async (req, res) => {
     }
 };
 
+// const loginUser = async (req, res) => {
+//     try {
+//         const { email, password } = req.body;
+//
+//         // Проверка наличия пользователя с таким email
+//         const user = await User.findOne({ email });
+//         if (!user) {
+//             return res.status(400).json({ message: 'Invalid email or password.' });
+//         }
+//
+//
+//         // Проверка пароля
+//         const passwordMatch = await bcrypt.compare(password, user.password);
+//         if (!passwordMatch) {
+//             return res.status(400).json({ message: 'Invalid email or password.' });
+//         }
+//
+//
+//         console.log('email:', email);
+//         console.log('password:', password);
+//         console.log('_id:', user._id);
+//         console.log('role:', user.role);
+//
+//         // Создание JWT токена
+//         const token = jwt.sign({ userId: user._id, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '30d' });
+//
+//         res.json({ token, userId: user._id, email: user.email, role: user.role });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Internal server error.' });
+//     }
+// };
+
+
+
 const loginUser = async (req, res) => {
     try {
         const { email, password } = req.body;
 
+        // Вывод информации в консоль для отладки
+        console.log('Login request received with email:', email);
+
         // Проверка наличия пользователя с таким email
         const user = await User.findOne({ email });
         if (!user) {
-            return res.status(400).json({ message: 'Invalid email or password.' });
+            console.log('User not found');
+            return res.status(401).json({ message: 'Invalid email or password.' });
         }
+
+        // Вывод информации в консоль для отладки
+        console.log('User found with email:', user.email);
 
         // Проверка пароля
         const passwordMatch = await bcrypt.compare(password, user.password);
         if (!passwordMatch) {
-            return res.status(400).json({ message: 'Invalid email or password.' });
+            console.log('Password does not match');
+            return res.status(401).json({ message: 'Invalid email or password.' });
         }
 
         // Создание JWT токена
@@ -53,6 +96,8 @@ const loginUser = async (req, res) => {
         res.status(500).json({ message: 'Internal server error.' });
     }
 };
+
+
 
 
 

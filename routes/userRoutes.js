@@ -5,6 +5,7 @@ const UserController = require('./../controllers/UserController'); // созда
 const { authenticateUser, authorizeUser } = require('./../middleware/authMiddleware');
 
 
+// Регистрация пользователя без проверки токена
 router.post('/registration', UserController.registerUser);
 router.post('/login', UserController.loginUser);
 

@@ -1,10 +1,18 @@
+//
+//
 // // server/middleware/authMiddleware.js
 // const jwt = require('jsonwebtoken');
 //
 // const authenticateUser = (req, res, next) => {
 //     const token = req.header('Authorization');
+//     // Оставим возможность проходить запросам без токена для гостей
+//     if (!token && req.originalUrl.includes('/api/products')) {
+//         // Для эндпоинтов с товарами или направлениями позволим доступ без токена
+//         return next();
+//     }
+//
 //     if (!token) {
-//         return res.status(401).json({ message: 'Unauthorized' });
+//         return res.status(401).json({ message: 'Несанкционированный' });
 //     }
 //
 //     try {
@@ -13,14 +21,14 @@
 //         next();
 //     } catch (error) {
 //         console.error(error);
-//         res.status(401).json({ message: 'Unauthorized' });
+//         res.status(401).json({ message: 'Несанкционированный' });
 //     }
 // };
 //
 // const authorizeUser = (roles) => {
 //     return (req, res, next) => {
 //         if (!roles.includes(req.user.role)) {
-//             return res.status(403).json({ message: 'Forbidden' });
+//             return res.status(403).json({ message: 'Запрещенный' });
 //         }
 //         next();
 //     };
@@ -30,19 +38,25 @@
 
 
 
+
 // server/middleware/authMiddleware.js
 const jwt = require('jsonwebtoken');
 
 const authenticateUser = (req, res, next) => {
     const token = req.header('Authorization');
-    // Оставим возможность проходить запросам без токена для гостей
+
+    // Разрешаем проход для запросов на продукты без токена
     if (!token && req.originalUrl.includes('/api/products')) {
-        // Для эндпоинтов с товарами или направлениями позволим доступ без токена
         return next();
     }
 
+    if (!token && req.originalUrl.includes('/api/users/registration')) {
+        return next();
+    }
+
+    // Далее ваша текущая логика проверки токена
     if (!token) {
-        return res.status(401).json({ message: 'Unauthorized' });
+        return res.status(401).json({ message: 'Несанкционированный' });
     }
 
     try {
@@ -51,17 +65,21 @@ const authenticateUser = (req, res, next) => {
         next();
     } catch (error) {
         console.error(error);
-        res.status(401).json({ message: 'Unauthorized' });
+        res.status(401).json({ message: 'Несанкционированный' });
     }
 };
+
 
 const authorizeUser = (roles) => {
     return (req, res, next) => {
         if (!roles.includes(req.user.role)) {
-            return res.status(403).json({ message: 'Forbidden' });
+            return res.status(403).json({ message: 'Запрещенный' });
         }
         next();
     };
 };
 
 module.exports = { authenticateUser, authorizeUser };
+
+
+

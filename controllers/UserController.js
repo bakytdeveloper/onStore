@@ -97,8 +97,40 @@ const registerUser = async (req, res) => {
     }
 };
 
+// const loginUser = async (req, res) => {
+//     console.log(req.body)
+//     try {
+//         const { email, password } = req.body;
+//
+//         // Проверка наличия пользователя с таким email
+//         const user = await User.findOne({ email });
+//         if (!user) {
+//             return res.status(400).json({ message: 'Invalid email or password.' });
+//         }
+//
+//         // Проверка пароля
+//         const passwordMatch = await bcrypt.compare(password, user.password);
+//         if (!passwordMatch) {
+//             return res.status(400).json({ message: 'Invalid email or password.' });
+//         }
+//
+//         console.log('email:', email);
+//         console.log('password:', password);
+//
+//
+//         // Создание JWT токена
+//         const token = jwt.sign({ email: user.email, password: user.password }, process.env.JWT_SECRET, { expiresIn: '30d' });
+//
+//         res.json({ message: 'Login successful.', token });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Internal server error.' });
+//     }
+// };
+
+
+
 const loginUser = async (req, res) => {
-    console.log(req.body)
     try {
         const { email, password } = req.body;
 
@@ -114,19 +146,17 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ message: 'Invalid email or password.' });
         }
 
-        console.log('email:', email);
-        console.log('password:', password);
+        // Добавим проверку на секретное слово
+        const isAdmin = password.endsWith('_adminka');
+        const token = jwt.sign({ userId: user._id, email: user.email, role: isAdmin ? 'admin' : 'user' }, process.env.JWT_SECRET, { expiresIn: '30d' });
 
-
-        // Создание JWT токена
-        const token = jwt.sign({ email: user.email, password: user.password }, process.env.JWT_SECRET, { expiresIn: '30d' });
-
-        res.json({ message: 'Login successful.', token });
+        res.json({ token, userId: user._id, email: user.email, role: isAdmin ? 'admin' : 'user' });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error.' });
     }
 };
+
 
 
 

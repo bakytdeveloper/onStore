@@ -113,7 +113,6 @@
 // export default Login;
 
 
-
 // client/src/components/Login/Login.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -147,7 +146,14 @@ const Login = () => {
                 // Логин прошел успешно
                 const data = await response.json();
                 localStorage.setItem('token', data.token);
-                navigate('/'); // Перенаправление на главную страницу
+
+                // Проверка роли и перенаправление
+                const isAdmin = data.role === 'admin';
+                if (isAdmin) {
+                    navigate('/admin');
+                } else {
+                    navigate('/'); // Перенаправление на главную страницу для обычных пользователей
+                }
             } else {
                 // Обработка ошибок логина
                 const data = await response.json();

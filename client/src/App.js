@@ -111,18 +111,7 @@ import Registration from "./components/Registration/Registration";
 import Login from "./components/Login/Login";
 import AdminPanel from "./components/AdminPanel/AdminPanel";
 
-function MainContent({ handleSearch, handleDirectionSelect, handleProductsLoad, handleTypeSelect, filteredProducts, products }) {
-  return (
-      <React.Fragment>
-        <Sidebar
-            onDirectionSelect={handleDirectionSelect}
-            onProductsLoad={handleProductsLoad}
-            onTypeSelect={handleTypeSelect}
-        />
-        <ProductList className="product-list" products={filteredProducts} />
-      </React.Fragment>
-  );
-}
+
 
 function App() {
   const [products, setProducts] = useState([]);
@@ -130,6 +119,8 @@ function App() {
   const [selectedDirection, setSelectedDirection] = useState(null);
   const [selectedType, setSelectedType] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+
+
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -191,6 +182,7 @@ function App() {
                 </React.Fragment>
               }
           />
+          <Route path="/" element={<ProductList />} />
           <Route path="/details/:productId" element={<ProductDetails products={products} />} />
           <Route path="/registration" element={<Registration />} />
           <Route path="/login" element={<Login />} />

@@ -4,9 +4,36 @@ const jwt = require('jsonwebtoken');
 const User = require('./../models/User');
 const Product = require('./../models/Product');
 
+// const registerUser = async (req, res) => {
+//     try {
+//         const { email, password } = req.body;
+//
+//         // Проверка наличия пользователя с таким email
+//         const existingUser = await User.findOne({ email });
+//         if (existingUser) {
+//             return res.status(400).json({ message: 'User with this email already exists.' });
+//         }
+//
+//         // Хэширование пароля
+//         const hashedPassword = await bcrypt.hash(password, 10);
+//
+//         // Создание нового пользователя
+//         const newUser = new User({ email, password: hashedPassword });
+//         await newUser.save();
+//
+//         res.status(201).json({ message: 'User registered successfully.' });
+//     } catch (error) {
+//         console.error(error);
+//         res.status(500).json({ message: 'Internal server error.' });
+//     }
+// };
+
+
+// server/controllers/UserController.js
+
 const registerUser = async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { email, password, username } = req.body;
 
         // Проверка наличия пользователя с таким email
         const existingUser = await User.findOne({ email });
@@ -17,8 +44,8 @@ const registerUser = async (req, res) => {
         // Хэширование пароля
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Создание нового пользователя
-        const newUser = new User({ email, password: hashedPassword });
+        // Создание нового пользователя с именем пользователя
+        const newUser = new User({ email, password: hashedPassword, username });
         await newUser.save();
 
         res.status(201).json({ message: 'User registered successfully.' });
@@ -27,6 +54,9 @@ const registerUser = async (req, res) => {
         res.status(500).json({ message: 'Internal server error.' });
     }
 };
+
+
+
 
 // const loginUser = async (req, res) => {
 //     try {

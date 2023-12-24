@@ -126,6 +126,7 @@
 // client/src/components/Registration/Registration.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaTimes, FaHome } from 'react-icons/fa';
 import './Registration.css';
 
 const Registration = () => {
@@ -169,6 +170,9 @@ const Registration = () => {
 
     return (
         <div className="registration-container">
+            <div className="close-icon" onClick={() => navigate('/')}>
+                <FaTimes />
+            </div>
             <h2>Регистрация</h2>
             <form onSubmit={handleSubmit}>
                 <label>

@@ -5,6 +5,9 @@
     border: 1px solid #ccc;
     border-radius: 5px;
 }
+.close-icon {
+    padding: 5px 15px 5px  330px;
+}
 
 form {
     display: flex;

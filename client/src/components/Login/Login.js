@@ -116,6 +116,8 @@
 // client/src/components/Login/Login.js
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { FaTimes, FaHome } from 'react-icons/fa';
+
 import './Login.css';
 
 const Login = () => {
@@ -166,6 +168,9 @@ const Login = () => {
 
     return (
         <div className="login-container">
+            <div className="close-icon" onClick={() => navigate('/')}>
+                <FaTimes />
+            </div>
             <h2>Вход</h2>
             <form onSubmit={handleSubmit}>
                 <label>

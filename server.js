@@ -28,10 +28,13 @@ db.once('open', () => {
 });
 
 // Middleware для аутентификации
-app.use(authenticateUser);
+// app.use(authenticateUser);
 
 app.use('/api/users', userRoutes);
 app.use('/api/products', productRoutes);
+
+app.use(authenticateUser);
+
 app.use('/api/orders', orderRoutes);
 app.use('/api/admin', adminRoutes);
 

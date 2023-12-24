@@ -4,9 +4,12 @@ const jwt = require('jsonwebtoken');
 const User = require('./../models/User');
 const Product = require('./../models/Product');
 
+
+// // server/controllers/UserController.js
+//
 // const registerUser = async (req, res) => {
 //     try {
-//         const { email, password } = req.body;
+//         const { email, password, username } = req.body;
 //
 //         // Проверка наличия пользователя с таким email
 //         const existingUser = await User.findOne({ email });
@@ -17,8 +20,8 @@ const Product = require('./../models/Product');
 //         // Хэширование пароля
 //         const hashedPassword = await bcrypt.hash(password, 10);
 //
-//         // Создание нового пользователя
-//         const newUser = new User({ email, password: hashedPassword });
+//         // Создание нового пользователя с именем пользователя
+//         const newUser = new User({ email, password: hashedPassword, username });
 //         await newUser.save();
 //
 //         res.status(201).json({ message: 'User registered successfully.' });
@@ -27,37 +30,10 @@ const Product = require('./../models/Product');
 //         res.status(500).json({ message: 'Internal server error.' });
 //     }
 // };
-
-
-// server/controllers/UserController.js
-
-const registerUser = async (req, res) => {
-    try {
-        const { email, password, username } = req.body;
-
-        // Проверка наличия пользователя с таким email
-        const existingUser = await User.findOne({ email });
-        if (existingUser) {
-            return res.status(400).json({ message: 'User with this email already exists.' });
-        }
-
-        // Хэширование пароля
-        const hashedPassword = await bcrypt.hash(password, 10);
-
-        // Создание нового пользователя с именем пользователя
-        const newUser = new User({ email, password: hashedPassword, username });
-        await newUser.save();
-
-        res.status(201).json({ message: 'User registered successfully.' });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Internal server error.' });
-    }
-};
-
-
-
-
+//
+//
+//
+//
 // const loginUser = async (req, res) => {
 //     try {
 //         const { email, password } = req.body;
@@ -93,39 +69,68 @@ const registerUser = async (req, res) => {
 
 
 
-const loginUser = async (req, res) => {
-    try {
-        const { email, password } = req.body;
 
-        // Вывод информации в консоль для отладки
-        console.log('Login request received with email:', email);
+const registerUser = async (req, res) => {
+    try {
+        const { email, password, username } = req.body;
 
         // Проверка наличия пользователя с таким email
-        const user = await User.findOne({ email });
-        if (!user) {
-            console.log('User not found');
-            return res.status(401).json({ message: 'Invalid email or password.' });
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ message: 'User with this email already exists.' });
         }
 
-        // Вывод информации в консоль для отладки
-        console.log('User found with email:', user.email);
+        // Хэширование пароля
+        const hashedPassword = await bcrypt.hash(password, 10);
 
-        // Проверка пароля
-        const passwordMatch = await bcrypt.compare(password, user.password);
-        if (!passwordMatch) {
-            console.log('Password does not match');
-            return res.status(401).json({ message: 'Invalid email or password.' });
-        }
+        // Создание нового пользователя с именем пользователя
+        const newUser = new User({ email, password: hashedPassword, username });
+        await newUser.save();
 
         // Создание JWT токена
-        const token = jwt.sign({ userId: user._id, email: user.email, role: user.role }, process.env.JWT_SECRET, { expiresIn: '30d' });
+        const token = jwt.sign({ email: newUser.email, password: newUser.password }, process.env.JWT_SECRET, { expiresIn: '30d' });
 
-        res.json({ token, userId: user._id, email: user.email, role: user.role });
+        res.status(201).json({ message: 'User registered successfully.', token });
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: 'Internal server error.' });
     }
 };
+
+const loginUser = async (req, res) => {
+    console.log(req.body)
+    try {
+        const { email, password } = req.body;
+
+        // Проверка наличия пользователя с таким email
+        const user = await User.findOne({ email });
+        if (!user) {
+            return res.status(400).json({ message: 'Invalid email or password.' });
+        }
+
+        // Проверка пароля
+        const passwordMatch = await bcrypt.compare(password, user.password);
+        if (!passwordMatch) {
+            return res.status(400).json({ message: 'Invalid email or password.' });
+        }
+
+        console.log('email:', email);
+        console.log('password:', password);
+
+
+        // Создание JWT токена
+        const token = jwt.sign({ email: user.email, password: user.password }, process.env.JWT_SECRET, { expiresIn: '30d' });
+
+        res.json({ message: 'Login successful.', token });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: 'Internal server error.' });
+    }
+};
+
+
+
+
 
 
 

@@ -26,6 +26,7 @@
 const mongoose = require('mongoose');
 
 const userSchema = new mongoose.Schema({
+    username: { type: String }, // Добавлено поле для имени пользователя
     email: { type: String, unique: true, required: true },
     password: { type: String, required: true },
     role: { type: String, enum: ['client', 'guest', 'admin'], default: 'guest' },
@@ -34,7 +35,7 @@ const userSchema = new mongoose.Schema({
         quantity: { type: Number, default: 1 },
     }],
     purchaseHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Order' }],
-    username: { type: String }, // Добавлено поле для имени пользователя
+    // username: { type: String }, // Добавлено поле для имени пользователя
     firstName: { type: String },
     lastName: { type: String },
 });

@@ -10,10 +10,11 @@ const productSchema = new mongoose.Schema({
     direction: { type: String, required: true },
     type: { type: String, required: true },
     brand: { type: String, required: true },
-    images: [{ type: String }],
+    // images: [{ type: String }],
     name: { type: String, required: true },
     description: { type: String, required: true },
     price: { type: Number, required: true },
+    images: [{ type: String }],
     characteristics: [characteristicSchema],
 });
 

@@ -1,7 +1,7 @@
 /* client/src/components/AdminPanel/AdminPanel.css */
 .admin-panel {
     max-width: 800px;
-    margin: 0 auto;
+    margin: 120px auto;
     padding: 20px;
     background-color: #f4f4f4;
     border: 1px solid #ddd;
@@ -50,3 +50,4 @@
 .admin-panel div {
     margin-bottom: 20px;
 }
+

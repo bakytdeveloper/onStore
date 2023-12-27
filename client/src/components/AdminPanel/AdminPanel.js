@@ -110,25 +110,25 @@ const AdminPanel = () => {
             <h2>Админ-панель</h2>
             {selectedProduct ? (
                 <div>
-                    <h3>Edit Product</h3>
+                    <h3>Редактировать продукт</h3>
                     <ProductForm onSubmit={handleProductSubmit} initialData={selectedProduct} />
-                    <button onClick={handleCancelEdit}>Cancel Edit</button>
+                    <button onClick={handleCancelEdit}>Отменить редактирование.</button>
                 </div>
             ) : (
                 <div>
-                    <h3>Create New Product</h3>
+                    <h3>Создать Новый продукт</h3>
                     <ProductForm onSubmit={handleProductSubmit} />
                 </div>
             )}
 
-            <h3>Product List</h3>
+            <h3>Список продуктов</h3>
             <ul>
                 {Array.isArray(products) &&
                 products.map((product) => (
                     <li key={product._id}>
                         {product.name} - {product.brand}
-                        <button onClick={() => handleEditProduct(product)}>Edit</button>
-                        <button onClick={() => handleDeleteProduct(product._id)}>Delete</button>
+                        <button onClick={() => handleEditProduct(product)}>Редактировать</button>
+                        <button onClick={() => handleDeleteProduct(product._id)}>Удалить</button>
                     </li>
                 ))}
             </ul>
